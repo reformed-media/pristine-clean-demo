@@ -69,7 +69,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <CTABand headline="See pricing." sub="Transparent. No surprises." cta="View Services" to="/services" />
+      <CTABand title="See pricing." subtitle="Transparent. No surprises." cta="View Services" href="/services" />
       <div className="hidden">
         <Link to="/book">book</Link>
       </div>

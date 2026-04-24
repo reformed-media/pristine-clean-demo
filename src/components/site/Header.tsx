@@ -3,12 +3,12 @@ import { Link, NavLink } from "react-router-dom";
 export function Header() {
   const links = [
     { to: "/", label: "Home", end: true },
-    { to: "/services", label: "Services" },
-    { to: "/gallery", label: "Gallery" },
-    { to: "/about", label: "About" },
-    { to: "/book", label: "Book" },
-    { to: "/contact", label: "Contact" },
-  ] as const;
+    { to: "/services", label: "Services", end: false },
+    { to: "/gallery", label: "Gallery", end: false },
+    { to: "/about", label: "About", end: false },
+    { to: "/book", label: "Book", end: false },
+    { to: "/contact", label: "Contact", end: false },
+  ];
 
   return (
     <header className="sticky top-0 z-50 backdrop-blur-md bg-background/80 border-b border-border">

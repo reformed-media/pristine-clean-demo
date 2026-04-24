@@ -93,7 +93,7 @@ export default function GalleryPage() {
         </div>
       )}
 
-      <CTABand headline="Want your car in here?" sub="Book a detail." cta="Book Now" />
+      <CTABand title="Want your car in here?" subtitle="Book a detail." cta="Book Now" />
     </>
   );
 }
