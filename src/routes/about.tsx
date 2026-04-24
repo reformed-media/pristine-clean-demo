@@ -1,22 +1,15 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { Link } from "react-router-dom";
 import { CTABand } from "@/components/site/CTABand";
 import { FadeIn } from "@/components/site/FadeIn";
+import { SEO } from "@/components/site/SEO";
 
-export const Route = createFileRoute("/about")({
-  head: () => ({
-    meta: [
-      { title: "About — Pristine Clean LI" },
-      { name: "description", content: "Mobile detailing built on word of mouth. Founded 2023 on Long Island by Nick." },
-      { property: "og:title", content: "About Pristine Clean LI" },
-      { property: "og:description", content: "Mobile detailing built on word of mouth. Founded 2023 by Nick." },
-    ],
-  }),
-  component: AboutPage,
-});
-
-function AboutPage() {
+export default function AboutPage() {
   return (
     <>
+      <SEO
+        title="About — Pristine Clean LI"
+        description="Mobile detailing built on word of mouth. Founded 2023 on Long Island by Nick."
+      />
       <section className="relative h-[40vh] min-h-[320px] flex items-end overflow-hidden border-b border-border">
         {/* TODO: swap for real Pristine Clean photo */}
         <img src="https://images.unsplash.com/photo-1607860108855-64acf2078ed9?auto=format&fit=crop&w=2400&q=80" alt="Detailer hand polishing a car" className="absolute inset-0 w-full h-full object-cover" />

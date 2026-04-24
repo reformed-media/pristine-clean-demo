@@ -1,18 +1,7 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { Link } from "react-router-dom";
 import { CTABand } from "@/components/site/CTABand";
 import { FadeIn } from "@/components/site/FadeIn";
-
-export const Route = createFileRoute("/services")({
-  head: () => ({
-    meta: [
-      { title: "Services & Pricing — Pristine Clean LI" },
-      { name: "description", content: "Auto, marine, and home detailing on Long Island. Transparent pricing and add-ons." },
-      { property: "og:title", content: "Services & Pricing — Pristine Clean LI" },
-      { property: "og:description", content: "Auto, marine, and home detailing on Long Island. Transparent pricing." },
-    ],
-  }),
-  component: ServicesPage,
-});
+import { SEO } from "@/components/site/SEO";
 
 function PriceCard({ name, price, desc, featured }: { name: string; price: string; desc: string; featured?: boolean }) {
   return (
@@ -25,9 +14,13 @@ function PriceCard({ name, price, desc, featured }: { name: string; price: strin
   );
 }
 
-function ServicesPage() {
+export default function ServicesPage() {
   return (
     <>
+      <SEO
+        title="Services & Pricing — Pristine Clean LI"
+        description="Auto, marine, and home detailing on Long Island. Transparent pricing and add-ons."
+      />
       <section className="relative h-[40vh] min-h-[320px] flex items-end overflow-hidden border-b border-border">
         {/* TODO: swap for real Pristine Clean photo */}
         <img src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=2400&q=80" alt="Detailing tools laid out" className="absolute inset-0 w-full h-full object-cover" />
