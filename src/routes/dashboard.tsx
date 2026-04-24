@@ -1,18 +1,9 @@
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-
-export const Route = createFileRoute("/dashboard")({
-  head: () => ({
-    meta: [
-      { title: "My Dashboard — Pristine Clean LI" },
-      { name: "description", content: "Manage your Pristine Clean LI bookings, vehicles, and history." },
-    ],
-  }),
-  component: Dashboard,
-});
+import { SEO } from "@/components/site/SEO";
 
 // TODO: wire to real auth and database (Supabase) post-signature
-function Dashboard() {
+export default function Dashboard() {
   const navigate = useNavigate();
   const [modal, setModal] = useState<null | "reschedule" | "cancel">(null);
   const [active, setActive] = useState("dashboard");
