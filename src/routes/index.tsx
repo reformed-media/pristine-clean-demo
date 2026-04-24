@@ -44,9 +44,6 @@ export default function HomePage() {
         description="Mobile detailing across Nassau and Suffolk. Auto, marine, and home services. Booked by appointment."
         image={HERO_IMG}
       />
-      {(() => null)()}
-  return (
-    <>
       {/* HERO */}
       <section className="relative min-h-[92vh] flex items-end overflow-hidden">
         {/* TODO: swap for real Pristine Clean photo */}
