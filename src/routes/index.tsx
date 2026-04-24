@@ -1,21 +1,10 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { Link } from "react-router-dom";
 import { CTABand } from "@/components/site/CTABand";
 import { FadeIn } from "@/components/site/FadeIn";
 import { ServiceMap } from "@/components/site/ServiceMap";
+import { SEO } from "@/components/site/SEO";
 
-export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      { title: "Pristine Clean LI — Mobile Auto & Marine Detailing on Long Island" },
-      { name: "description", content: "Mobile detailing across Nassau and Suffolk. Auto, marine, and home services. Booked by appointment." },
-      { property: "og:title", content: "Pristine Clean LI — Mobile Detailing" },
-      { property: "og:description", content: "Premium mobile auto and marine detailing on Long Island." },
-      { property: "og:image", content: "https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&w=1600&q=80" },
-      { name: "twitter:image", content: "https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&w=1600&q=80" },
-    ],
-  }),
-  component: HomePage,
-});
+const HERO_IMG = "https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&w=1600&q=80";
 
 const services = [
   {
@@ -47,7 +36,15 @@ const testimonials = [
   { quote: "Had him do my boat before the season. Hull, interior, everything. Looked brand new pulling out of the slip.", name: "Tom V.", car: "Oyster Bay" },
 ];
 
-function HomePage() {
+export default function HomePage() {
+  return (
+    <>
+      <SEO
+        title="Pristine Clean LI — Mobile Auto & Marine Detailing on Long Island"
+        description="Mobile detailing across Nassau and Suffolk. Auto, marine, and home services. Booked by appointment."
+        image={HERO_IMG}
+      />
+      {(() => null)()}
   return (
     <>
       {/* HERO */}
