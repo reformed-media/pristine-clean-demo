@@ -1,19 +1,7 @@
-import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { CTABand } from "@/components/site/CTABand";
 import { FadeIn } from "@/components/site/FadeIn";
-
-export const Route = createFileRoute("/gallery")({
-  head: () => ({
-    meta: [
-      { title: "Gallery — Pristine Clean LI" },
-      { name: "description", content: "Before and after photos from recent auto, marine, and home detailing jobs on Long Island." },
-      { property: "og:title", content: "Gallery — Pristine Clean LI" },
-      { property: "og:description", content: "Before and after work from Pristine Clean LI." },
-    ],
-  }),
-  component: GalleryPage,
-});
+import { SEO } from "@/components/site/SEO";
 
 type Cat = "all" | "auto" | "marine" | "home";
 const items: { cat: Exclude<Cat, "all">; before: string; after: string; label: string }[] = [
@@ -31,7 +19,7 @@ const items: { cat: Exclude<Cat, "all">; before: string; after: string; label: s
   { cat: "home", before: "https://images.unsplash.com/photo-1564540583246-934409427776?auto=format&fit=crop&w=1000&q=80", after: "https://images.unsplash.com/photo-1572120360610-d971b9d7767c?auto=format&fit=crop&w=1000&q=80", label: "Siding wash" },
 ];
 
-function GalleryPage() {
+export default function GalleryPage() {
   const [cat, setCat] = useState<Cat>("all");
   const [lightbox, setLightbox] = useState<number | null>(null);
   const filtered = useMemo(() => items.filter((i) => cat === "all" || i.cat === cat), [cat]);

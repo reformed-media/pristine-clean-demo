@@ -1,8 +1,8 @@
-import { Link } from "@tanstack/react-router";
+import { Link, NavLink } from "react-router-dom";
 
 export function Header() {
   const links = [
-    { to: "/", label: "Home" },
+    { to: "/", label: "Home", end: true },
     { to: "/services", label: "Services" },
     { to: "/gallery", label: "Gallery" },
     { to: "/about", label: "About" },
@@ -19,21 +19,21 @@ export function Header() {
         </Link>
         <nav className="hidden md:flex items-center gap-8">
           {links.map((l) => (
-            <Link
+            <NavLink
               key={l.to}
               to={l.to}
-              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-              activeProps={{ className: "text-sm text-foreground" }}
-              activeOptions={{ exact: l.to === "/" }}
+              end={l.end}
+              className={({ isActive }) =>
+                `text-sm transition-colors ${isActive ? "text-foreground" : "text-muted-foreground hover:text-foreground"}`
+              }
             >
               {l.label}
-            </Link>
+            </NavLink>
           ))}
         </nav>
         <div className="flex items-center gap-4">
           <Link
-            to="/book"
-            search={{ tab: "existing" }}
+            to="/book?tab=existing"
             className="hidden sm:inline text-sm text-muted-foreground hover:text-foreground transition-colors"
           >
             Log In

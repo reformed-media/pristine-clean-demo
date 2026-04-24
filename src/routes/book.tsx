@@ -1,24 +1,7 @@
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useState } from "react";
-import { z } from "zod";
 import { FadeIn } from "@/components/site/FadeIn";
-
-const search = z.object({
-  tab: z.enum(["new", "existing"]).catch("new").optional(),
-});
-
-export const Route = createFileRoute("/book")({
-  validateSearch: search,
-  head: () => ({
-    meta: [
-      { title: "Book a Detail — Pristine Clean LI" },
-      { name: "description", content: "Book mobile auto, marine, or home detailing on Long Island." },
-      { property: "og:title", content: "Book a Detail — Pristine Clean LI" },
-      { property: "og:description", content: "Book mobile detailing on Long Island in under 2 minutes." },
-    ],
-  }),
-  component: BookPage,
-});
+import { SEO } from "@/components/site/SEO";
 
 type Booking = {
   service?: string;
@@ -32,13 +15,18 @@ type Booking = {
   email?: string;
 };
 
-function BookPage() {
-  const { tab = "new" } = Route.useSearch();
-  const navigate = useNavigate();
-  const setTab = (t: "new" | "existing") => navigate({ to: "/book", search: { tab: t } });
+export default function BookPage() {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const tabParam = searchParams.get("tab");
+  const tab: "new" | "existing" = tabParam === "existing" ? "existing" : "new";
+  const setTab = (t: "new" | "existing") => setSearchParams(t === "new" ? {} : { tab: t });
 
   return (
     <>
+      <SEO
+        title="Book a Detail — Pristine Clean LI"
+        description="Book mobile auto, marine, or home detailing on Long Island."
+      />
       <section className="container-x py-16 md:py-24">
         <FadeIn>
           <h1 className="text-display uppercase text-5xl md:text-7xl">Book a detail.</h1>
@@ -69,7 +57,7 @@ function LoginCard({ onSwitch }: { onSwitch: () => void }) {
         className="mt-6 space-y-4"
         onSubmit={(e) => {
           e.preventDefault();
-          navigate({ to: "/dashboard" });
+          navigate("/dashboard");
         }}
       >
         <Field label="Email"><input required type="email" className="form-input" defaultValue="client@example.com" /></Field>

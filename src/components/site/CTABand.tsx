@@ -1,29 +1,29 @@
-import { Link } from "@tanstack/react-router";
+import { Link } from "react-router-dom";
 
 export function CTABand({
-  headline = "Ready to book?",
-  sub = "Takes under 2 minutes.",
+  title = "Ready to book?",
+  subtitle = "Get a quote in under 2 minutes.",
   cta = "Book a Detail",
-  to = "/book",
+  href = "/book",
 }: {
-  headline?: string;
-  sub?: string;
+  title?: string;
+  subtitle?: string;
   cta?: string;
-  to?: string;
+  href?: string;
 }) {
   return (
-    <section className="bg-surface border-y border-border">
-      <div className="container-x py-24 text-center">
-        <h2 className="text-display text-4xl md:text-6xl uppercase">{headline}</h2>
-        <p className="mt-4 text-muted-foreground">{sub}</p>
-        <div className="mt-8">
-          <Link
-            to={to}
-            className="inline-flex items-center justify-center h-12 px-8 rounded-sm bg-primary text-primary-foreground font-medium hover:brightness-110 transition"
-          >
-            {cta}
-          </Link>
+    <section className="border-y border-border bg-surface">
+      <div className="container-x py-20 flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
+        <div>
+          <h2 className="text-display text-3xl md:text-5xl text-foreground leading-tight">{title}</h2>
+          <p className="mt-3 text-muted-foreground max-w-xl">{subtitle}</p>
         </div>
+        <Link
+          to={href}
+          className="inline-flex items-center justify-center h-12 px-8 rounded-sm bg-primary text-primary-foreground text-sm font-semibold hover:brightness-110 transition"
+        >
+          {cta}
+        </Link>
       </div>
     </section>
   );

@@ -1,25 +1,17 @@
-import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { FadeIn } from "@/components/site/FadeIn";
 import { ServiceMap } from "@/components/site/ServiceMap";
+import { SEO } from "@/components/site/SEO";
 
-export const Route = createFileRoute("/contact")({
-  head: () => ({
-    meta: [
-      { title: "Contact — Pristine Clean LI" },
-      { name: "description", content: "Call, text, or message Pristine Clean LI on Long Island." },
-      { property: "og:title", content: "Contact Pristine Clean LI" },
-      { property: "og:description", content: "Call, text, or message us." },
-    ],
-  }),
-  component: ContactPage,
-});
-
-function ContactPage() {
+export default function ContactPage() {
   const [sent, setSent] = useState(false);
 
   return (
     <>
+      <SEO
+        title="Contact — Pristine Clean LI"
+        description="Call, text, or message Pristine Clean LI on Long Island."
+      />
       <section className="relative h-[40vh] min-h-[320px] flex items-end overflow-hidden border-b border-border">
         {/* TODO: swap for real Pristine Clean photo */}
         <img src="https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&w=2400&q=80" alt="Dark luxury car at night" className="absolute inset-0 w-full h-full object-cover" />

@@ -1,18 +1,9 @@
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-
-export const Route = createFileRoute("/dashboard")({
-  head: () => ({
-    meta: [
-      { title: "My Dashboard — Pristine Clean LI" },
-      { name: "description", content: "Manage your Pristine Clean LI bookings, vehicles, and history." },
-    ],
-  }),
-  component: Dashboard,
-});
+import { SEO } from "@/components/site/SEO";
 
 // TODO: wire to real auth and database (Supabase) post-signature
-function Dashboard() {
+export default function Dashboard() {
   const navigate = useNavigate();
   const [modal, setModal] = useState<null | "reschedule" | "cancel">(null);
   const [active, setActive] = useState("dashboard");
@@ -26,6 +17,11 @@ function Dashboard() {
   ];
 
   return (
+    <>
+      <SEO
+        title="My Dashboard — Pristine Clean LI"
+        description="Manage your Pristine Clean LI bookings, vehicles, and history."
+      />
     <div className="container-x py-12 grid grid-cols-1 md:grid-cols-[220px_1fr] gap-10 min-h-[80vh]">
       <aside className="bg-surface border border-border rounded-sm p-4 h-fit md:sticky md:top-24">
         <div className="text-eyebrow px-3 mb-3">Account</div>
@@ -39,7 +35,7 @@ function Dashboard() {
               {l.label}
             </button>
           ))}
-          <button onClick={() => navigate({ to: "/" })} className="mt-4 text-left px-3 py-2 rounded-sm text-sm text-muted-foreground hover:text-foreground border-t border-border">Log Out</button>
+          <button onClick={() => navigate("/")} className="mt-4 text-left px-3 py-2 rounded-sm text-sm text-muted-foreground hover:text-foreground border-t border-border">Log Out</button>
         </nav>
       </aside>
 
@@ -137,6 +133,7 @@ function Dashboard() {
         </div>
       )}
     </div>
+    </>
   );
 }
 

@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router";
+import { Link } from "react-router-dom";
 
 export function Footer() {
   return (
@@ -16,9 +16,9 @@ export function Footer() {
         <div>
           <h4 className="text-eyebrow mb-4">Services</h4>
           <ul className="space-y-2 text-sm text-muted-foreground">
-            <li><Link to="/services" hash="auto" className="hover:text-foreground">Auto Detailing</Link></li>
-            <li><Link to="/services" hash="marine" className="hover:text-foreground">Marine Detailing</Link></li>
-            <li><Link to="/services" hash="home" className="hover:text-foreground">Home Services</Link></li>
+            <li><Link to="/services#auto" className="hover:text-foreground">Auto Detailing</Link></li>
+            <li><Link to="/services#marine" className="hover:text-foreground">Marine Detailing</Link></li>
+            <li><Link to="/services#home" className="hover:text-foreground">Home Services</Link></li>
           </ul>
         </div>
         <div>
