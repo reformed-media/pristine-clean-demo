@@ -106,7 +106,7 @@ export default function HomePage() {
         <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
           {services.map((s, i) => (
             <FadeIn key={s.title} delay={i * 0.1}>
-              <Link to={s.href} hash={s.hash} className="group block bg-surface border border-border rounded-sm overflow-hidden hover:border-primary/50 transition">
+              <Link to={`${s.href}#${s.hash}`} className="group block bg-surface border border-border rounded-sm overflow-hidden hover:border-primary/50 transition">
                 <div className="aspect-[4/3] overflow-hidden">
                   {/* TODO: swap for real Pristine Clean photo */}
                   <img src={s.img} alt={s.title} className="w-full h-full object-cover group-hover:brightness-110 transition" />
