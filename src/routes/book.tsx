@@ -27,9 +27,6 @@ export default function BookPage() {
         title="Book a Detail — Pristine Clean LI"
         description="Book mobile auto, marine, or home detailing on Long Island."
       />
-
-  return (
-    <>
       <section className="container-x py-16 md:py-24">
         <FadeIn>
           <h1 className="text-display uppercase text-5xl md:text-7xl">Book a detail.</h1>
