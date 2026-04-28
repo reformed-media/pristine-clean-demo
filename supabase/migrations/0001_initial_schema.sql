@@ -202,10 +202,15 @@ create trigger services_updated_at
   before update on services
   for each row execute function set_updated_at();
 
--- Public read for active services (anon sees prices on /book)
-create policy "services_select_public" on services
+-- Anyone can read active services (anon sees prices on /book)
+create policy "services_select_active" on services
   for select to anon, authenticated
-  using (is_active or is_admin());
+  using (is_active = true);
+
+-- Admins can also read inactive services
+create policy "services_select_admin" on services
+  for select to authenticated
+  using (is_admin());
 
 -- Admin only for mutations
 create policy "services_insert_admin" on services
@@ -309,7 +314,18 @@ create policy "booking_services_select_own" on booking_services
     or is_admin()
   );
 
--- Admin full CRUD
+-- Client can insert for their own bookings
+create policy "booking_services_insert_own" on booking_services
+  for insert to authenticated
+  with check (
+    exists (
+      select 1 from bookings b
+      join clients c on c.id = b.client_id
+      where b.id = booking_id and c.auth_user_id = auth.uid()
+    )
+  );
+
+-- Admin can insert any
 create policy "booking_services_insert_admin" on booking_services
   for insert with check (is_admin());
 
@@ -475,6 +491,37 @@ create policy "admin_users_update_admin" on admin_users
 
 create policy "admin_users_delete_admin" on admin_users
   for delete using (is_admin());
+
+-- ---------------------------------------------------------------------------
+-- Table grants (required for PostgREST / Supabase client access)
+-- ---------------------------------------------------------------------------
+
+-- anon: read-only on services (public pricing)
+grant select on services to anon;
+
+-- authenticated: CRUD on own data, read on shared tables
+grant select, insert, update, delete on clients to authenticated;
+grant select, insert, update, delete on client_addresses to authenticated;
+grant select, insert, update, delete on vehicles to authenticated;
+grant select on services to authenticated;
+grant select, insert, update on bookings to authenticated;
+grant select, insert on booking_services to authenticated;
+grant select on booking_photos to authenticated;
+grant select, insert, update, delete on leads to authenticated;
+grant select, insert, update, delete on communication_log to authenticated;
+grant select on admin_users to authenticated;
+
+-- service_role: full access (bypasses RLS, used by admin scripts)
+grant all on clients to service_role;
+grant all on client_addresses to service_role;
+grant all on vehicles to service_role;
+grant all on services to service_role;
+grant all on bookings to service_role;
+grant all on booking_services to service_role;
+grant all on booking_photos to service_role;
+grant all on leads to service_role;
+grant all on communication_log to service_role;
+grant all on admin_users to service_role;
 
 -- ---------------------------------------------------------------------------
 -- Seed: services
