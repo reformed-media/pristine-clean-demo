@@ -56,7 +56,7 @@ export default function HomePage() {
         <div className="relative container-x pb-20 md:pb-32">
           <FadeIn>
             <h1 className="text-display uppercase text-5xl sm:text-7xl md:text-8xl max-w-5xl">
-              Mobile detailing.<br />We come to you.
+              We bring the shop to you.
             </h1>
           </FadeIn>
           <FadeIn delay={0.1}>
