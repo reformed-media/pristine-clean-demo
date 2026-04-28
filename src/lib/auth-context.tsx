@@ -9,7 +9,7 @@ import {
 import type { Session, User } from "@supabase/supabase-js";
 import { supabase } from "./supabase";
 
-type ClientRow = {
+export type ClientRow = {
   id: string;
   auth_user_id: string;
   first_name: string;
@@ -39,6 +39,7 @@ type AuthContextValue = {
     phone?: string;
   }) => Promise<AuthResult>;
   signOut: () => Promise<void>;
+  refreshClient: () => Promise<void>;
 };
 
 const AuthContext = createContext<AuthContextValue | null>(null);
@@ -135,6 +136,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         signIn,
         signUp,
         signOut: handleSignOut,
+        refreshClient: async () => {
+          const uid = session?.user?.id;
+          if (uid) await fetchClient(uid);
+        },
       }}
     >
       {children}
