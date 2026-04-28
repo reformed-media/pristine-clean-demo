@@ -1,6 +1,8 @@
 import { Routes, Route, Link } from "react-router-dom";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
+import { AuthProvider } from "@/lib/auth-context";
+import { RequireAuth } from "@/components/RequireAuth";
 import HomePage from "./routes/index";
 import ServicesPage from "./routes/services";
 import GalleryPage from "./routes/gallery";
@@ -8,6 +10,7 @@ import AboutPage from "./routes/about";
 import BookPage from "./routes/book";
 import ContactPage from "./routes/contact";
 import Dashboard from "./routes/dashboard";
+import SignupPage from "./routes/signup";
 
 function NotFound() {
   return (
@@ -24,21 +27,24 @@ function NotFound() {
 
 export default function App() {
   return (
-    <div className="min-h-screen flex flex-col">
-      <Header />
-      <main className="flex-1">
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/services" element={<ServicesPage />} />
-          <Route path="/gallery" element={<GalleryPage />} />
-          <Route path="/about" element={<AboutPage />} />
-          <Route path="/book" element={<BookPage />} />
-          <Route path="/contact" element={<ContactPage />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </main>
-      <Footer />
-    </div>
+    <AuthProvider>
+      <div className="min-h-screen flex flex-col">
+        <Header />
+        <main className="flex-1">
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/services" element={<ServicesPage />} />
+            <Route path="/gallery" element={<GalleryPage />} />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/book" element={<BookPage />} />
+            <Route path="/contact" element={<ContactPage />} />
+            <Route path="/signup" element={<SignupPage />} />
+            <Route path="/dashboard" element={<RequireAuth><Dashboard /></RequireAuth>} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </main>
+        <Footer />
+      </div>
+    </AuthProvider>
   );
 }
