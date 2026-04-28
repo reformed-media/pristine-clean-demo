@@ -1,5 +1,6 @@
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useState } from "react";
+import { useAuth } from "@/lib/auth-context";
 import { FadeIn } from "@/components/site/FadeIn";
 import { SEO } from "@/components/site/SEO";
 
@@ -48,24 +49,65 @@ export default function BookPage() {
 
 function LoginCard({ onSwitch }: { onSwitch: () => void }) {
   const navigate = useNavigate();
-  // TODO: wire to real auth and database (Supabase) post-signature
+  const { signIn } = useAuth();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState<string | null>(null);
+  const [submitting, setSubmitting] = useState(false);
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    setError(null);
+    setSubmitting(true);
+
+    const result = await signIn(email, password);
+    if (result.error) {
+      setError(result.error);
+      setSubmitting(false);
+      return;
+    }
+
+    navigate("/dashboard");
+  }
+
   return (
     <div className="max-w-md bg-surface border border-border rounded-sm p-8">
       <h2 className="text-2xl font-bold">Welcome back.</h2>
       <p className="mt-1 text-sm text-muted-foreground">Log in to manage your bookings.</p>
-      <form
-        className="mt-6 space-y-4"
-        onSubmit={(e) => {
-          e.preventDefault();
-          navigate("/dashboard");
-        }}
-      >
-        <Field label="Email"><input required type="email" className="form-input" defaultValue="client@example.com" /></Field>
-        <Field label="Password"><input required type="password" className="form-input" defaultValue="••••••••" /></Field>
-        <button className="w-full h-12 rounded-sm bg-primary text-primary-foreground font-medium hover:brightness-110">Log in</button>
+      <form className="mt-6 space-y-4" onSubmit={handleSubmit}>
+        <Field label="Email">
+          <input
+            required
+            type="email"
+            className="form-input"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </Field>
+        <Field label="Password">
+          <input
+            required
+            type="password"
+            className="form-input"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </Field>
+        {error && (
+          <p className="text-sm text-muted-foreground">{error}</p>
+        )}
+        <button
+          type="submit"
+          disabled={submitting}
+          className="w-full h-12 rounded-sm bg-primary text-primary-foreground font-medium hover:brightness-110 disabled:opacity-40 transition"
+        >
+          {submitting ? "Logging in..." : "Log in"}
+        </button>
       </form>
       <div className="mt-4 flex justify-between text-sm">
-        <a href="#" className="text-muted-foreground hover:text-foreground">Forgot password?</a>
+        <span />
         <button onClick={onSwitch} className="text-muted-foreground hover:text-foreground">No account? Switch to New Client</button>
       </div>
       <FormStyles />
